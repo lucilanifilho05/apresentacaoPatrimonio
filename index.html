@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Patrimônio - SENAI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="img/logo-senai.jpg" alt="Logo SENAI" class="logo-senai">
+                <img src="img/logo-app.png" alt="Logo App" class="logo-app">
+            </div>
+            <ul>
+                <li><a href="#problematica">Problemática</a></li>
+                <li><a href="#dados">Origem dos Dados</a></li>
+                <li><a href="#aplicativo">O Aplicativo</a></li>
+                <li><a href="#custos">Custos</a></li>
+                <li><a href="#proposta">Proposta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Solução Inteligente para Gestão de Patrimônio</h1>
+            <p class="fade-in">Localize, gerencie e controle todos os bens da sua unidade com eficiência e precisão</p>
+            <button class="cta-button fade-in">Saiba Mais</button>
+        </div>
+        <div class="hero-images-container fade-in">
+            <div class="hero-image">
+                <img src="img/tela-principal.png" alt="Visualização da tela principal do aplicativo">
+            </div>
+            <div class="hero-image">
+                <img src="img/tela-principal1.png" alt="Visualização da tela de inventário do aplicativo">
+            </div>
+        </div>
+    </section>
+
+        <!-- Problemática Atual -->
+        <section id="problematica" class="section">
+            <div class="container">
+                <h2 class="section-title slide-in-left">Problemática Atual</h2>
+                <div class="content-wrapper">
+                    <div class="text-content slide-in-left">
+                        <p>Na unidade do SENAI, os bens patrimoniais são constantemente movimentados, o que dificulta:</p>
+                        <ul>
+                            <li>Localização rápida de equipamentos e materiais</li>
+                            <li>Controle preciso do inventário</li>
+                            <li>Conferência ambiental eficiente</li>
+                            <li>Gestão adequada dos recursos</li>
+                        </ul>
+                        <p>Essa situação resulta em perda de tempo, redução da produtividade e dificuldades no planejamento.</p>
+                    </div>
+                    <div class="image-content slide-in-right">
+                        <img src="img/problem.png" alt="Ilustração do problema de organização">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Origem dos Dados -->
+        <section id="dados" class="section alt-bg">
+            <div class="container">
+                <h2 class="section-title slide-in-right">Origem dos Dados</h2>
+                <div class="content-wrapper reverse">
+                    <div class="image-content slide-in-left">
+                        <img src="img/automation.png" alt="Estrutura de dados do sistema">
+                    </div>
+                    <div class="text-content slide-in-right">
+                        <p>Nosso sistema utiliza uma arquitetura resiliente para garantir a integridade e disponibilidade das informações:</p>
+                        <ul>
+                            <li>Integração via API: os dados são extraídos de relatórios no Power BI por meio de uma automação segura.</li>
+                            <li>Atualização automática: a exportação e carga dos dados no banco de dados dedicado ocorrem de forma contínua, sem necessidade de intervenção manual.</li>
+                            <li>Base independente em servidor VPS: mesmo que o banco de dados principal do sistema fique indisponível, o aplicativo continua operando normalmente a partir dessa base paralela.</li>                        
+                        </ul>                
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- O Aplicativo -->
+       <section id="aplicativo" class="section">
+    <div class="container">
+        <h2 class="section-title slide-in-left">O Aplicativo</h2>
+        
+        <div class="app-features-grid">
+            <!-- Funcionalidade 1 -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <h3 class="feature-title">Leitura de Patrimônio</h3>
+                </div>
+                <p class="feature-preview">Sistema rápido de leitura de código de barras para identificação de bens.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li>Leitura instantânea via câmera</li>
+                        <li>Informações detalhadas do bem</li>
+                        <li>Integração com base de dados</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Funcionalidade 2 -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="feature-title">Conferência Ambiental</h3>
+                </div>
+                <p class="feature-preview">Controle de bens por ambiente com relatórios de conferência.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li>Mapeamento por ambientes</li>
+                        <li>Relatórios de inconsistências</li>
+                        <li>Alertas de bens em locais errados</li>
+                        <li>Disparo de email ao finalizar a conferência</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Funcionalidade 3 -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Gestão de Usuários</h3>
+                </div>
+                <p class="feature-preview">Sistema permite a inserção de usuário em conferência.</p>
+                <div class="feature-details">
+                    <ul>
+                        <li>Trabalho colaborativo</li>
+                        <li>Aumento da produtividade e agilidade</li>
+                        <li>Melhor acompanhamento e transparência</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-container fade-in">
+            <h3>Veja o aplicativo em ação</h3>
+            <div class="video-placeholder">
+                <p>Vídeo de demonstração do aplicativo</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Custos -->
+        <section id="custos" class="section alt-bg">
+            <div class="container">
+                <h2 class="section-title slide-in-right">Análise de Custos</h2>
+                <div class="costs-container fade-in">
+                    <div class="cost-item">
+                        <h3>Infraestrutura</h3>
+                        <ul>
+                            <li>Servidor VPS: R$ 54,99/mês</li>
+                            <li>Servidor Físico: Investimento R$ 10.000 - 15.000</li>
+                            <li>Domínio: R$ 40-60/ano</li>
+                        </ul>
+                    </div>
+                    <div class="cost-item">
+                        <h3>* Publicação</h3>
+                        <ul>
+                            <li>Google Play Store: Taxa única de US$ 25</li>
+                            <li>Apple Store: Anual US$ 99</li>                          
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proposta -->
+        <section id="proposta" class="section">
+            <div class="container">
+                <h2 class="section-title slide-in-left">Proposta do Sistema Gerenciador</h2>
+                <div class="proposal-content">
+                    <div class="proposal-wrapper">
+                        <div class="proposal-text fade-in">
+                            <p>Desenvolvemos um protótipo completo no Figma que contempla todas as funcionalidades necessárias para uma gestão eficiente do patrimônio.</p>
+                            <ul>
+                                <li>Interface intuitiva e amigável</li>
+                                <li>Relatórios detalhados e personalizáveis</li>
+                                <li>Controle de acesso multiusuário com níveis de permissão</li>
+                                <li>Visualização em tempo real dos ambientes e equipamentos</li>
+                                <li>Integração com sistemas existentes</li>
+                            </ul>
+                            <p>O sistema permite a visualização intuitiva dos ambientes, relatórios detalhados e controle de acesso multiusuário.</p>
+                        </div>
+                        <div class="proposal-image fade-in">
+                            <img src="img/sofi.png" alt="Protótipo do sistema no Figma">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Slider Section -->
+        <section id="slider" class="section alt-bg">
+            <div class="container">
+                <h2 class="section-title slide-in-left">Galeria do Sistema</h2>
+                <div class="slider-container fade-in">
+                    <div class="slider">
+                        <div class="slide active">
+                            <img src="img/slides/slide1.jpeg" alt="Tela do sistema 1">
+                        </div>
+                        <div class="slide">
+                            <img src="img/slides/slide2.jpeg" alt="Tela do sistema 2">
+                        </div>
+                        <div class="slide">
+                            <img src="img/slides/slide3.jpeg" alt="Tela do sistema 3">
+                        </div>
+                        <div class="slide">
+                            <img src="img/slides/slide4.jpeg" alt="Tela do sistema 4">
+                        </div>
+                        <div class="slide">
+                            <img src="img/slides/slide5.jpeg" alt="Tela do sistema 4">
+                        </div>
+                        <div class="slide">
+                            <img src="img/slides/slide6.jpeg" alt="Tela do sistema 4">
+                        </div>
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <button class="slider-play-pause">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        
+                        <button class="slider-btn next-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="slider-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logos">
+                    <img src="img/logo-senai.png" alt="Logo SENAI">
+                    <img src="img/logo-app.png" alt="Logo App">
+                </div>
+                <p>Solução inovadora para gestão de patrimônio - SENAI</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
