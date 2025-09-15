@@ -1,5 +1,26 @@
-// script.js - Versão Completa
+// script.js - Versão Atualizada
 document.addEventListener('DOMContentLoaded', function() {
+    // Menu Hamburger
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    }
+
     // Observador de interseção para animações ao rolar
     const observerOptions = {
         root: null,
@@ -21,13 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Navegação suave
-    document.querySelectorAll('nav a').forEach(anchor => {
+    document.querySelectorAll('.nav-link').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
             // Verificar se é um link âncora
-            if (targetId.startsWith('#')) {
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
@@ -41,41 +61,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     
                     // Atualizar a classe ativa no menu
-                    document.querySelectorAll('nav a').forEach(link => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
                         link.classList.remove('active');
                     });
                     this.classList.add('active');
                 }
-            } else {
-                // Para links externos (se houver)
-                window.location.href = targetId;
             }
+            // Links externos seguirão normalmente
         });
     });
 
     // Efeito de header ao rolar
     const header = document.querySelector('header');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        // Atualizar menu ativo baseado na seção visível
-        updateActiveMenu();
-    });
+    if (header) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Atualizar menu ativo baseado na seção visível
+            updateActiveMenu();
+        });
+    }
 
     // Função para atualizar o menu ativo baseado na seção visível
     function updateActiveMenu() {
         const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const header = document.querySelector('header');
+        
+        if (!sections.length || !navLinks.length || !header) return;
+        
         let currentSection = '';
+        const headerHeight = header.offsetHeight;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            const headerHeight = header.offsetHeight;
             
             if (window.scrollY >= (sectionTop - headerHeight - 50) && 
                 window.scrollY < (sectionTop + sectionHeight - headerHeight)) {
@@ -95,10 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
         ctaButton.addEventListener('click', function() {
-            const aplicativoSection = document.querySelector('#problematica');
-            if (aplicativoSection) {
+            const problematicaSection = document.querySelector('#problematica');
+            if (problematicaSection) {
                 const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = aplicativoSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                const targetPosition = problematicaSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
                 window.scrollTo({
                     top: targetPosition,
@@ -150,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    
+    // Placeholder de vídeo
     const videoPlaceholder = document.querySelector('.video-placeholder');
     if (videoPlaceholder) {
         videoPlaceholder.addEventListener('click', function() {
@@ -158,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+    // Inicializações
     updateActiveMenu();
     initSlider();
 });
@@ -171,6 +195,12 @@ function initSlider() {
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
     const playPauseBtn = document.querySelector('.slider-play-pause');
+    
+    // Verificar se todos os elementos do slider existem
+    if (!slider || !slides.length || !dots.length || !prevBtn || !nextBtn || !playPauseBtn) {
+        return;
+    }
+    
     const playPauseIcon = playPauseBtn.querySelector('i');
     
     let currentSlide = 0;
