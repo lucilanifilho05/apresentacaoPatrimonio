@@ -21,9 +21,34 @@ body {
   line-height: 1.6;
   color: var(--text-color);
   overflow-x: hidden;
-  transform: scale(1.25);
-  transform-origin: top left;
-  width: 80%;
+  width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  body {
+    transform: scale(1.1);
+    transform-origin: top left;
+    width: 90%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  body {
+    transform: scale(1.25);
+    transform-origin: top left;
+    width: 80%;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  body {
+    transform: scale(1.35);
+    transform-origin: top left;
+    width: 75%;
+  }
 }
 
 .container {
