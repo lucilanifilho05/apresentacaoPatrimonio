@@ -585,6 +585,57 @@ nav {
   font-weight: bold;
 }
 
+.video-container {
+    text-align: center;
+    margin: 60px auto;
+    padding: 0 20px;
+    max-width: 400px;
+}
+
+.video-container h3 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.video-wrapper {
+    position: relative;
+    margin: 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    background: #000;
+    padding: 40px 15px 50px;
+    max-width: 300px;
+}
+
+.video-frame {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 177.8%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.video-caption {
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+
 /* ===== FOOTER ===== */
 footer {
   background-color: var(--primary-color);

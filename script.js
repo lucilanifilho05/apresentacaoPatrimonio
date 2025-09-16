@@ -1,18 +1,17 @@
-// script.js - Versão Atualizada
-document.addEventListener('DOMContentLoaded', function() {
-    // Menu Hamburger
+// script.js - Versão Otimizada
+document.addEventListener('DOMContentLoaded', function () {
+    // ===== MENU HAMBURGER =====
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            hamburger.innerHTML = navMenu.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : 
-                '<i class="fas fa-bars"></i>';
+            hamburger.innerHTML = navMenu.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
         });
-        
-        // Fechar menu ao clicar em um link
+
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
@@ -21,266 +20,129 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Observador de interseção para animações ao rolar
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
+    // ===== ANIMAÇÕES AO ROLAR =====
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    // Observar elementos com classes de animação
-    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
-        observer.observe(el);
-    });
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right')
+        .forEach(el => observer.observe(el));
 
-    // Navegação suave
+    // ===== SCROLL SUAVE =====
     document.querySelectorAll('.nav-link').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            // Verificar se é um link âncora
+        anchor.addEventListener('click', function (e) {
             if (this.getAttribute('href').startsWith('#')) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Calcular a posição considerando o header fixo
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
                     const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Atualizar a classe ativa no menu
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
+                    const offsetTop = target.offsetTop - headerHeight;
+
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
                 }
             }
-            // Links externos seguirão normalmente
         });
     });
 
-    // Efeito de header ao rolar
+    // ===== HEADER AO ROLAR + MENU ATIVO =====
     const header = document.querySelector('header');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            
-            // Atualizar menu ativo baseado na seção visível
-            updateActiveMenu();
-        });
-    }
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
 
-    // Função para atualizar o menu ativo baseado na seção visível
     function updateActiveMenu() {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const header = document.querySelector('header');
-        
-        if (!sections.length || !navLinks.length || !header) return;
-        
-        let currentSection = '';
+        let current = '';
         const headerHeight = header.offsetHeight;
-        
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.scrollY >= (sectionTop - headerHeight - 50) && 
-                window.scrollY < (sectionTop + sectionHeight - headerHeight)) {
-                currentSection = section.getAttribute('id');
+            const sectionTop = section.offsetTop - headerHeight - 50;
+            const sectionBottom = sectionTop + section.clientHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                current = section.id;
             }
         });
-        
+
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSection}`) {
-                link.classList.add('active');
-            }
+            link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
         });
     }
 
-    // Botão CTA - Saiba Mais
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 50);
+        updateActiveMenu();
+    });
+
+    // ===== BOTÃO "SAIBA MAIS" =====
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
-        ctaButton.addEventListener('click', function() {
-            const problematicaSection = document.querySelector('#problematica');
-            if (problematicaSection) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = problematicaSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+        ctaButton.addEventListener('click', () => {
+            const problematica = document.querySelector('#problematica');
+            if (problematica) {
+                const headerHeight = header.offsetHeight;
+                const offsetTop = problematica.offsetTop - headerHeight;
+
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
         });
     }
 
-    // Interatividade para os cards de funcionalidades
-    const featureCards = document.querySelectorAll('.feature-card');
-    featureCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-            this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
-            this.style.minHeight = '300px';
-            
-            const details = this.querySelector('.feature-details');
-            const preview = this.querySelector('.feature-preview');
-            
-            if (details && preview) {
-                details.style.maxHeight = '500px';
-                details.style.opacity = '1';
-                details.style.marginTop = '20px';
-                
-                preview.style.opacity = '0';
-                preview.style.height = '0';
-                preview.style.margin = '0';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            this.style.boxShadow = '';
-            this.style.minHeight = '';
-            
-            const details = this.querySelector('.feature-details');
-            const preview = this.querySelector('.feature-preview');
-            
-            if (details && preview) {
-                details.style.maxHeight = '0';
-                details.style.opacity = '0';
-                details.style.marginTop = '0';
-                
-                preview.style.opacity = '1';
-                preview.style.height = 'auto';
-                preview.style.margin = '';
-            }
-        });
+    // ===== CARDS DE FUNCIONALIDADES =====
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', () => card.classList.add('hovered'));
+        card.addEventListener('mouseleave', () => card.classList.remove('hovered'));
     });
 
-    // Placeholder de vídeo
-    const videoPlaceholder = document.querySelector('.video-placeholder');
-    if (videoPlaceholder) {
-        videoPlaceholder.addEventListener('click', function() {
-            alert('Aqui seria exibido um vídeo de demonstração do aplicativo em funcionamento.');
-        });
-    }
-
-    // Inicializações
-    updateActiveMenu();
+    // ===== SLIDER =====
     initSlider();
 });
 
-// Slider functionality
+// ===== FUNÇÃO SLIDER =====
 function initSlider() {
-    const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
     const playPauseBtn = document.querySelector('.slider-play-pause');
-    
-    // Verificar se todos os elementos do slider existem
-    if (!slider || !slides.length || !dots.length || !prevBtn || !nextBtn || !playPauseBtn) {
-        return;
-    }
-    
-    const playPauseIcon = playPauseBtn.querySelector('i');
-    
-    let currentSlide = 0;
+    if (!slides.length || !dots.length || !prevBtn || !nextBtn || !playPauseBtn) return;
+
+    let current = 0;
     let isPlaying = true;
-    let slideInterval;
-    
-    // Função para mostrar slide específico
+    let interval;
+
+    const playPauseIcon = playPauseBtn.querySelector('i');
+
     function showSlide(n) {
-        // Esconder todos os slides
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        // Ajustar índice se for beyond dos limites
-        if (n >= slides.length) {
-            currentSlide = 0; // Volta para o primeiro slide
-        } else if (n < 0) {
-            currentSlide = slides.length - 1; // Vai para o último slide
-        } else {
-            currentSlide = n;
-        }
-        
-        // Mostrar slide atual
-        slides[currentSlide].classList.add('active');
-        dots[currentSlide].classList.add('active');
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
     }
-    
-    // Próximo slide
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
-    
-    // Slide anterior
-    function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
-    
-    // Iniciar autoplay
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
     function startSlider() {
-        slideInterval = setInterval(nextSlide, 4000); // Muda a cada 4 segundos
+        interval = setInterval(nextSlide, 4000);
         isPlaying = true;
-        playPauseIcon.classList.remove('fa-play');
-        playPauseIcon.classList.add('fa-pause');
+        playPauseIcon.className = 'fas fa-pause';
     }
-    
-    // Parar autoplay
+
     function stopSlider() {
-        clearInterval(slideInterval);
+        clearInterval(interval);
         isPlaying = false;
-        playPauseIcon.classList.remove('fa-pause');
-        playPauseIcon.classList.add('fa-play');
+        playPauseIcon.className = 'fas fa-play';
     }
-    
-    // Event listeners
-    nextBtn.addEventListener('click', () => {
-        if (isPlaying) stopSlider();
-        nextSlide();
+
+    nextBtn.addEventListener('click', () => { stopSlider(); nextSlide(); });
+    prevBtn.addEventListener('click', () => { stopSlider(); prevSlide(); });
+    playPauseBtn.addEventListener('click', () => isPlaying ? stopSlider() : startSlider());
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => { stopSlider(); showSlide(i); });
     });
-    
-    prevBtn.addEventListener('click', () => {
-        if (isPlaying) stopSlider();
-        prevSlide();
-    });
-    
-    playPauseBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            stopSlider();
-        } else {
-            startSlider();
-        }
-    });
-    
-    // Clique nos dots
-    dots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            if (isPlaying) stopSlider();
-            const slideIndex = parseInt(this.getAttribute('data-slide'));
-            showSlide(slideIndex);
-        });
-    });
-    
-    // Iniciar o slider
+
     startSlider();
 }
